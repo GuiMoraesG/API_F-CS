@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using API_F_CS.Data;
+using API_F_CS.Interfaces;
+using API_F_CS.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 36)));
 });
+
+builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -27,5 +31,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.MapControllers();
 
 app.Run();

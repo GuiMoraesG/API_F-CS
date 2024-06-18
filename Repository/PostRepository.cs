@@ -18,5 +18,17 @@ namespace API_F_CS.Repository
         {
             return await _context.Posts.ToListAsync();
         }
+
+        public async Task<Post?> GetByIdAsync(int id)
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (post == null)
+            {
+                return null;
+            }
+
+            return post;
+        }
     }
 }

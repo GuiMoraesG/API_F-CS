@@ -21,5 +21,14 @@ namespace API_F_CS.Controllers
 
             return Ok(posts);
         }
+
+        [HttpGet("{Id:int}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var post = await _postRepo.GetByIdAsync(id);
+
+            return Ok(post);
+        }
+
     }
 }

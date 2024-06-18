@@ -1,4 +1,6 @@
-﻿using API_F_CS.Interfaces;
+﻿using API_F_CS.Dtos.Post;
+using API_F_CS.Interfaces;
+using API_F_CS.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_F_CS.Controllers
@@ -30,5 +32,19 @@ namespace API_F_CS.Controllers
             return Ok(post);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreatePost postUnfinished)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var post = postUnfinished.CreateToPost();
+
+            await _postRepo.CreateAsync(post);
+
+            return Ok(post);
+        }
     }
 }

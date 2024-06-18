@@ -30,5 +30,13 @@ namespace API_F_CS.Repository
 
             return post;
         }
+
+        public async Task<Post> CreateAsync(Post post)
+        {
+            await _context.Posts.AddAsync(post);
+            await _context.SaveChangesAsync();
+
+            return post;
+        }
     }
 }

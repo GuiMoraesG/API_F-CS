@@ -1,4 +1,5 @@
-﻿using API_F_CS.Models;
+﻿using API_F_CS.Dtos.Post;
+using API_F_CS.Models;
 
 namespace API_F_CS.Interfaces
 {
@@ -7,5 +8,6 @@ namespace API_F_CS.Interfaces
         Task<List<Post>> GetAllAsync();
         Task<Post?> GetByIdAsync(int id);
         Task<Post> CreateAsync(Post post);
+        Task<Post?> UpdateAsync(int id, UpdatePost post);
     }
 }

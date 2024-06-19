@@ -46,5 +46,24 @@ namespace API_F_CS.Controllers
 
             return Ok(post);
         }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdatePost postUpdated)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var post = await _postRepo.UpdateAsync(id, postUpdated);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(post.Default());
+        }
     }
 }

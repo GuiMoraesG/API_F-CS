@@ -9,5 +9,6 @@ namespace API_F_CS.Interfaces
         Task<Post?> GetByIdAsync(int id);
         Task<Post> CreateAsync(Post post);
         Task<Post?> UpdateAsync(int id, UpdatePost post);
+        Task<Post?> DeleteAsync(int id);
     }
 }

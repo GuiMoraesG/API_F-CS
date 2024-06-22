@@ -56,5 +56,20 @@ namespace API_F_CS.Repository
 
             return post;
         }
+
+        public async Task<Post?> DeleteAsync(int id)
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (post == null)
+            {
+                return null;
+            }
+
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+
+            return post;
+        }
     }
 }

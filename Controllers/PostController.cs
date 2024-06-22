@@ -65,5 +65,19 @@ namespace API_F_CS.Controllers
 
             return Ok(post.Default());
         }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var post = await _postRepo.DeleteAsync(id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return Ok("Post removed");
+        }
     }
 }

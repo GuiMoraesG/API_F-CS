@@ -20,5 +20,17 @@ namespace API_F_CS.Repository
 
             return comments;
         }
+
+        public async Task<Comment?> GetByIdAsync(int id)
+        {
+            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (comment == null)
+            {
+                return null;
+            }
+
+            return comment;
+        }
     }
 }

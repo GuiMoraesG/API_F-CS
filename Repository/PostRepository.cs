@@ -22,7 +22,7 @@ namespace API_F_CS.Repository
 
         public async Task<Post?> GetByIdAsync(int id)
         {
-            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            var post = await _context.Posts.Include(p => p.Comments).FirstOrDefaultAsync(p => p.Id == id);
 
             if (post == null)
             {

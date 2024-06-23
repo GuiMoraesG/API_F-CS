@@ -30,7 +30,7 @@ namespace API_F_CS.Controllers
         {
             var post = await _postRepo.GetByIdAsync(id);
 
-            return Ok(post);
+            return Ok(post.Default());
         }
 
         [HttpPost]

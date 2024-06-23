@@ -20,8 +20,9 @@ namespace API_F_CS.Controllers
         public async Task<IActionResult> GetAll()
         {
             var posts = await _postRepo.GetAllAsync();
+            var postsWC = posts.Select(p => p.Default()).ToList();
 
-            return Ok(posts);
+            return Ok(postsWC);
         }
 
         [HttpGet("{Id:int}")]

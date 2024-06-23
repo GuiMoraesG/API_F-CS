@@ -10,7 +10,8 @@ namespace API_F_CS.Mappers
             return new DefaultPost
             {
                 Title = post.Title,
-                Description = post.Description
+                Description = post.Description,
+                Comments = post.Comments.Select(c => c.Default()).ToList(),
             };
         }
 

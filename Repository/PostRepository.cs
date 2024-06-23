@@ -17,7 +17,7 @@ namespace API_F_CS.Repository
 
         public async Task<List<Post>> GetAllAsync()
         {
-            return await _context.Posts.ToListAsync();
+            return await _context.Posts.Include(p => p.Comments).ToListAsync();
         }
 
         public async Task<Post?> GetByIdAsync(int id)

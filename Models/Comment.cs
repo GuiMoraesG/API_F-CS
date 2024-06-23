@@ -7,6 +7,6 @@
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public int? PostId { get; set; }
-        public Post Post { get; set; } = new Post();
+        public Post? Post { get; set; }
     }
 }

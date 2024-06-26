@@ -32,5 +32,13 @@ namespace API_F_CS.Repository
 
             return comment;
         }
+
+        public async Task<Comment> CreateAsync(Comment comment)
+        {
+            await _context.Comments.AddAsync(comment);
+            await _context.SaveChangesAsync();
+
+            return comment;
+        }
     }
 }

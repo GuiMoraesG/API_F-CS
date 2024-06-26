@@ -1,4 +1,5 @@
-﻿using API_F_CS.Interfaces;
+﻿using API_F_CS.Dtos.Comment;
+using API_F_CS.Interfaces;
 using API_F_CS.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,12 @@ namespace API_F_CS.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepository _commentRepo;
+        private readonly IPostRepository _postRepo;
 
-        public CommentController(ICommentRepository commentRepo)
+        public CommentController(ICommentRepository commentRepo, IPostRepository postRepo)
         {
             _commentRepo = commentRepo;
+            _postRepo = postRepo;
         }
 
         [HttpGet]
@@ -29,10 +32,31 @@ namespace API_F_CS.Controllers
         {
             var comment = await _commentRepo.GetByIdAsync(id);
 
-            if (comment == null) 
+            if (comment == null)
             {
                 return NotFound();
             }
+
+            return Ok(comment);
+        }
+
+        [HttpPost("{postId:int}")]
+        public async Task<IActionResult> CreateComment([FromRoute] int postId, [FromBody] CreatedComment cComment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var exist = await _postRepo.AynPostAsync(postId);
+
+            if (!exist)
+            {
+                return NotFound();
+            }
+
+            var commentModel = cComment.CreateToComment(postId);
+            var comment = await _commentRepo.CreateAsync(commentModel);
 
             return Ok(comment);
         }

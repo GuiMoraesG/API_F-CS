@@ -71,5 +71,10 @@ namespace API_F_CS.Repository
 
             return post;
         }
+
+        public async Task<bool> AynPostAsync(int id)
+        {
+            return await _context.Posts.AnyAsync(p => p.Id == id);
+        }
     }
 }

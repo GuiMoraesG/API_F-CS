@@ -15,5 +15,14 @@ namespace API_F_CS.Mappers
                 PostId = comment.PostId,
             };
         }
+
+        public static Comment CreateToComment(this CreatedComment cComment, int postId)
+        {
+            return new Comment
+            {
+                Text = cComment.Text,
+                PostId = postId,
+            };
+        }
     }
 }

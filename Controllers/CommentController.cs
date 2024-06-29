@@ -81,5 +81,19 @@ namespace API_F_CS.Controllers
 
             return Ok(commentF.Default());
         }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> DeleteComment([FromRoute] int id)
+        {
+            var comment = await _commentRepo.DeleteAsync(id);
+
+            if (comment == null) 
+            {
+                return NotFound();
+            }
+
+            return Ok(comment.Default());
+        }
     }
 }

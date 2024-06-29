@@ -8,5 +8,6 @@ namespace API_F_CS.Interfaces
         Task<Comment?> GetByIdAsync(int id);
         Task<Comment> CreateAsync(Comment comment);
         Task<Comment?> UpdateAsync(Comment comment, int id);
+        Task<Comment?> DeleteAsync(int id);
     }
 }

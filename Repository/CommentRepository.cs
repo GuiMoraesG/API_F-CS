@@ -40,5 +40,20 @@ namespace API_F_CS.Repository
 
             return comment;
         }
+
+        public async Task<Comment?> UpdateAsync(Comment comment, int id)
+        {
+            var commentModel = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (commentModel == null)
+            {
+                return null;
+            }
+
+            commentModel.Text = comment.Text;
+            await _context.SaveChangesAsync();
+
+            return commentModel;
+        }
     }
 }

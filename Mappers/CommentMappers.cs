@@ -24,5 +24,13 @@ namespace API_F_CS.Mappers
                 PostId = postId,
             };
         }
+
+        public static Comment UpdateToComment(this UpdatedComment cComment)
+        {
+            return new Comment
+            {
+                Text = cComment.Text,
+            };
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using API_F_CS.Dtos.Comment;
 using API_F_CS.Interfaces;
 using API_F_CS.Mappers;
+using API_F_CS.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_F_CS.Controllers
@@ -37,7 +38,7 @@ namespace API_F_CS.Controllers
                 return NotFound();
             }
 
-            return Ok(comment);
+            return Ok(comment.Default());
         }
 
         [HttpPost("{postId:int}")]
@@ -58,7 +59,27 @@ namespace API_F_CS.Controllers
             var commentModel = cComment.CreateToComment(postId);
             var comment = await _commentRepo.CreateAsync(commentModel);
 
-            return Ok(comment);
+            return Ok(comment.Default());
+        }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<IActionResult> UpdateComment([FromRoute] int id, [FromBody] UpdatedComment comment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var commentModel = comment.UpdateToComment();
+            var commentF = await _commentRepo.UpdateAsync(commentModel, id);
+
+            if (commentF == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(commentF.Default());
         }
     }
 }
